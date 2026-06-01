@@ -1,5 +1,7 @@
 package com.mzrt.atlas_bank.account.controller;
 
+import com.mzrt.atlas_bank.account.dto.AccountResponse;
+import com.mzrt.atlas_bank.account.mapper.AccountMapper;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.service.IAccountService;
 import lombok.RequiredArgsConstructor;
@@ -14,21 +16,25 @@ import java.util.List;
 public class AccountController {
 
     private final IAccountService accountService;
+    private final AccountMapper accountMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Account create(@RequestBody Account account){
-        return accountService.create(account);
+    public AccountResponse create(@RequestBody Account account){
+        return accountMapper.toResponse(accountService.create(account));
     }
 
     @GetMapping
-    public List<Account> findAll(){
-        return accountService.findAll();
+    public List<AccountResponse> findAll(){
+        return accountService.findAll().stream()
+                .map(accountMapper::toResponse)
+                .toList();
+
     }
 
     @GetMapping("/{id}")
-    public Account findById(@PathVariable Long id){
-        return accountService.findById(id);
+    public AccountResponse findById(@PathVariable Long id){
+        return accountMapper.toResponse(accountService.findById(id));
     }
 
 }
