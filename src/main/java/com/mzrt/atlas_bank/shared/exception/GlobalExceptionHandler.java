@@ -6,8 +6,12 @@ import com.mzrt.atlas_bank.transaction.exception.InsufficientFundsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -46,6 +50,22 @@ public class GlobalExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR, "Error interno del servidor"
         );
         problemDetail.setTitle("Error interno");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+
+        List<String> errors = new ArrayList<>();
+
+        e.getFieldErrors().
+                forEach(error -> errors.add(error.getField() + ": " + error.getDefaultMessage()));
+
+        e.getGlobalErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+
+        problemDetail.setProperty("errors", errors);
+        problemDetail.setTitle("Error de validacion");
         return problemDetail;
     }
 }

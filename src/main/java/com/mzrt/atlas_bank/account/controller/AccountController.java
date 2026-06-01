@@ -1,9 +1,11 @@
 package com.mzrt.atlas_bank.account.controller;
 
 import com.mzrt.atlas_bank.account.dto.AccountResponse;
+import com.mzrt.atlas_bank.account.dto.CreateAccountRequest;
 import com.mzrt.atlas_bank.account.mapper.AccountMapper;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.service.IAccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,8 @@ public class AccountController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AccountResponse create(@RequestBody Account account){
+    public AccountResponse create(@Valid @RequestBody CreateAccountRequest request){
+        Account account = accountMapper.toEntity(request);
         return accountMapper.toResponse(accountService.create(account));
     }
 

@@ -6,6 +6,7 @@ import com.mzrt.atlas_bank.transaction.mapper.TransactionMapper;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 import com.mzrt.atlas_bank.transaction.service.ITransactionQueryService;
 import com.mzrt.atlas_bank.transaction.service.ITransferService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class TransactionController {
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionResponse transfer(@RequestBody TransferRequest request)
+    public TransactionResponse transfer(@Valid @RequestBody TransferRequest request)
     {
         Transaction transaction = transferService.execute(
                 request.fromAccountId(),
