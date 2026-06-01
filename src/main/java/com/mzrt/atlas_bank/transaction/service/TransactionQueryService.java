@@ -1,7 +1,7 @@
-package com.mzrt.atlas_bank.service;
+package com.mzrt.atlas_bank.transaction.service;
 
-import com.mzrt.atlas_bank.model.Transaction;
-import com.mzrt.atlas_bank.repository.TransactionRepository;
+import com.mzrt.atlas_bank.transaction.model.Transaction;
+import com.mzrt.atlas_bank.transaction.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

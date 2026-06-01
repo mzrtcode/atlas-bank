@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.model;
+package com.mzrt.atlas_bank.transaction.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

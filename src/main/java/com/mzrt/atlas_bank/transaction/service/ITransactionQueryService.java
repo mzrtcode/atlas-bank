@@ -1,6 +1,6 @@
-package com.mzrt.atlas_bank.service;
+package com.mzrt.atlas_bank.transaction.service;
 
-import com.mzrt.atlas_bank.model.Transaction;
+import com.mzrt.atlas_bank.transaction.model.Transaction;
 
 import java.util.List;
 

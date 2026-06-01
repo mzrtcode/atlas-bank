@@ -1,6 +1,6 @@
-package com.mzrt.atlas_bank.service;
+package com.mzrt.atlas_bank.account.service;
 
-import com.mzrt.atlas_bank.model.Account;
+import com.mzrt.atlas_bank.account.model.Account;
 
 import java.util.List;
 

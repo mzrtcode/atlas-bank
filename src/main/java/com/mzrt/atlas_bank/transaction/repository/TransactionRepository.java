@@ -1,6 +1,6 @@
-package com.mzrt.atlas_bank.repository;
+package com.mzrt.atlas_bank.transaction.repository;
 
-import com.mzrt.atlas_bank.model.Transaction;
+import com.mzrt.atlas_bank.transaction.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

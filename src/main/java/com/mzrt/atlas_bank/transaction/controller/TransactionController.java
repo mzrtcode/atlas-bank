@@ -1,8 +1,8 @@
-package com.mzrt.atlas_bank.controller;
+package com.mzrt.atlas_bank.transaction.controller;
 
-import com.mzrt.atlas_bank.model.Account;
-import com.mzrt.atlas_bank.model.Transaction;
-import com.mzrt.atlas_bank.service.*;
+import com.mzrt.atlas_bank.transaction.model.Transaction;
+import com.mzrt.atlas_bank.transaction.service.ITransactionQueryService;
+import com.mzrt.atlas_bank.transaction.service.ITransferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,29 +11,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/api/v1/transactions")
 @RequiredArgsConstructor
-public class AccountController {
+public class TransactionController {
 
-    private final IAccountService accountService;
-    private final ITransferService transferService;
     private final ITransactionQueryService transactionQueryService;
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Account create(@RequestBody Account account){
-        return accountService.create(account);
-    }
-
-    @GetMapping
-    public List<Account> findAll(){
-        return accountService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Account findById(@PathVariable Long id){
-        return accountService.findById(id);
-    }
+    private final ITransferService transferService;
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)
@@ -48,5 +31,4 @@ public class AccountController {
     public List<Transaction> getTransactions(@PathVariable Long id){
         return transactionQueryService.getByAccountId(id);
     }
-
 }
