@@ -1,5 +1,6 @@
 package com.mzrt.atlas_bank.account.service;
 
+import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class AccountService implements IAccountService {
     @Override
     public Account findById(Long id){
         return accountRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Cuenta no existe")
+                () -> new AccountNotFoundException(id)
         );
     }
 
