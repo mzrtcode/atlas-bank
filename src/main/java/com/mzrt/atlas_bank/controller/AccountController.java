@@ -2,7 +2,7 @@ package com.mzrt.atlas_bank.controller;
 
 import com.mzrt.atlas_bank.model.Account;
 import com.mzrt.atlas_bank.model.Transaction;
-import com.mzrt.atlas_bank.service.AccountService;
+import com.mzrt.atlas_bank.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final AccountService accountService;
+    private final IAccountService accountService;
+    private final ITransferService transferService;
+    private final ITransactionQueryService transactionQueryService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -39,12 +41,12 @@ public class AccountController {
                                 @RequestParam Long toId,
                                 @RequestParam BigDecimal amount)
     {
-        return accountService.transfer(fromId, toId, amount);
+        return transferService.execute(fromId, toId, amount);
     }
 
     @GetMapping("/{id}/transactions")
     public List<Transaction> getTransactions(@PathVariable Long id){
-        return accountService.getTransactions(id);
+        return transactionQueryService.getByAccountId(id);
     }
 
 }
