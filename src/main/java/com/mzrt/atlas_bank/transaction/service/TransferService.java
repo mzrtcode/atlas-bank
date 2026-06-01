@@ -3,7 +3,7 @@ package com.mzrt.atlas_bank.transaction.service;
 import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.transaction.exception.AccountNotActiveException;
-import com.mzrt.atlas_bank.transaction.exception.InsuficientFundsException;
+import com.mzrt.atlas_bank.transaction.exception.InsufficientFundsException;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 import com.mzrt.atlas_bank.account.repository.AccountRepository;
 import com.mzrt.atlas_bank.transaction.repository.TransactionRepository;
@@ -42,7 +42,7 @@ public class TransferService implements ITransferService {
 
         // Validar fondos
         if (from.getBalance().compareTo(amount) < 0) {
-            throw new InsuficientFundsException(fromId, from.getBalance(),amount);
+            throw new InsufficientFundsException(fromId, from.getBalance(),amount);
         }
 
         // Calcular comisión — hardcodeada
