@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.transaction.service;
+package com.mzrt.atlas_bank.transaction.service.transfer;
 
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 

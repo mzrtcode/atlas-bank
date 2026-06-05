@@ -1,15 +1,17 @@
-package com.mzrt.atlas_bank.transaction.service;
+package com.mzrt.atlas_bank.transaction.service.transfer;
 
 import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.account.model.AccountStatus;
 import com.mzrt.atlas_bank.transaction.exception.AccountNotActiveException;
 import com.mzrt.atlas_bank.transaction.exception.InsufficientFundsException;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 import com.mzrt.atlas_bank.account.repository.AccountRepository;
 import com.mzrt.atlas_bank.transaction.repository.TransactionRepository;
-import com.mzrt.atlas_bank.account.service.fee.FeeCalculator;
-import com.mzrt.atlas_bank.transaction.service.transfer.ITransferService;
-import com.mzrt.atlas_bank.transaction.service.transfer.TransferContext;
+import com.mzrt.atlas_bank.transaction.service.event.TransactionExecutedEvent;
+import com.mzrt.atlas_bank.transaction.service.fee.FeeCalculator;
+import com.mzrt.atlas_bank.transaction.service.factory.TransactionFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +23,13 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
 
     private final AccountRepository accountRepository;
     private final List<FeeCalculator> feeCalculators;
+    private final ApplicationEventPublisher publisher;
 
-    public TransferService(TransactionRepository transactionRepository, AccountRepository accountRepository, List<FeeCalculator> feeCalculators) {
+    public TransferService(TransactionRepository transactionRepository, AccountRepository accountRepository, List<FeeCalculator> feeCalculators, ApplicationEventPublisher publisher) {
         super(transactionRepository);
         this.accountRepository = accountRepository;
         this.feeCalculators = feeCalculators;
+        this.publisher = publisher;
     }
 
     @Transactional
@@ -37,18 +41,29 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
         Account to = accountRepository.findById(toId)
                 .orElseThrow(() -> new AccountNotFoundException(toId));
 
-        return process(new TransferContext(from, to, amount));
+        Transaction transaction = process(new TransferContext(from, to, amount));
+
+        publisher.publishEvent(new TransactionExecutedEvent(
+                transaction.getId(),
+                transaction.getType(),
+                transaction.getSourceAccountId(),
+                transaction.getTargetAccountId(),
+                transaction.getAmount(),
+                transaction.getFee()
+        ));
+
+        return transaction;
 
     }
 
     @Override
     protected void validate(TransferContext context) {
 
-        if (!"ACTIVE".equals(context.accountFrom().getStatus())) {
-            throw new AccountNotActiveException(context.accountFrom().getId(), context.accountFrom().getStatus());
+        if (context.accountFrom().getStatus() != AccountStatus.ACTIVE) {
+            throw new AccountNotActiveException(context.accountFrom().getId(), context.accountTo().getStatus().name());
         }
-        if (!"ACTIVE".equals(context.accountTo().getStatus())) {
-            throw new AccountNotActiveException(context.accountTo().getId(), context.accountTo().getStatus());
+        if (context.accountTo().getStatus() != AccountStatus.ACTIVE) {
+            throw new AccountNotActiveException(context.accountTo().getId(), context.accountTo().getStatus().name());
         }
 
 
@@ -63,7 +78,7 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
         return feeCalculators.stream()
                 .filter(fc -> fc.supports(context.accountFrom().getType()))
                 .findFirst()
-                .orElseThrow(() ->  new RuntimeException("No hay calculador para el tipo de cuenta " + context.accountFrom().getType()))
+                .orElseThrow(() ->  new RuntimeException("No hay calculador para el tipo de cuenta " + context.accountFrom().getStatus().name()))
                 .calculate(context.amount());
 
     }
@@ -80,15 +95,7 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
 
     @Override
     protected Transaction save(TransferContext context, BigDecimal fee) {
-
-        Transaction transaction = new Transaction();
-        transaction.setType("TRANSFER");
-        transaction.setSourceAccountId(context.accountFrom().getId());
-        transaction.setTargetAccountId(context.accountTo().getId());
-        transaction.setAmount(context.amount());
-        transaction.setFee(fee);
-        transaction.setStatus("EXECUTED");
-
+        Transaction transaction = TransactionFactory.createTransfer(context, fee);
         return transactionRepository.save(transaction);
     }
 }

@@ -27,21 +27,23 @@ public class Account {
     @Column(nullable = false)
     private String email;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String type; //Savings, Checking
+    private AccountType type; //Savings, Checking
 
     @Column(nullable = false)
     private BigDecimal balance;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String status; //Active, Closed, Frozen
+    private AccountStatus status; //Active, Closed, Frozen
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     public void prePersist(){
-        if (status == null) status = "ACTIVE";
+        if (status == null) this.status = AccountStatus.ACTIVE ;
         if (balance == null) balance= BigDecimal.ZERO;
         createdAt = LocalDateTime.now();
     }
