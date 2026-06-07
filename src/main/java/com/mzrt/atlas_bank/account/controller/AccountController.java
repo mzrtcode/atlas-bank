@@ -2,6 +2,8 @@ package com.mzrt.atlas_bank.account.controller;
 
 import com.mzrt.atlas_bank.account.dto.AccountResponse;
 import com.mzrt.atlas_bank.account.dto.CreateAccountRequest;
+import com.mzrt.atlas_bank.account.dto.DashboardResponse;
+import com.mzrt.atlas_bank.account.facade.AccountDashboardFacade;
 import com.mzrt.atlas_bank.account.mapper.AccountMapper;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.service.IAccountService;
@@ -19,6 +21,7 @@ public class AccountController {
 
     private final IAccountService accountService;
     private final AccountMapper accountMapper;
+    private final AccountDashboardFacade dashboardFacade;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -38,6 +41,12 @@ public class AccountController {
     @GetMapping("/{id}")
     public AccountResponse findById(@PathVariable Long id){
         return accountMapper.toResponse(accountService.findById(id));
+    }
+
+    @GetMapping("/{id}/dashboard")
+    @ResponseStatus(HttpStatus.OK)
+    public DashboardResponse getDashboard(@PathVariable Long id){
+        return dashboardFacade.getDashboard(id);
     }
 
 }
