@@ -1,0 +1,54 @@
+package com.mzrt.atlas_bank.account.service;
+
+import com.mzrt.atlas_bank.account.model.Account;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Service
+@Slf4j
+@Primary
+public class CachedAccountService implements IAccountService{
+
+    private final IAccountService delegate;
+    private final Map<Long, Account> cache = new ConcurrentHashMap<>();
+
+    public CachedAccountService(@Qualifier("auditableAccountService") IAccountService delegate) {
+        this.delegate = delegate;
+    }
+
+    @Override
+    public Account create(Account account) {
+
+        Account newAccount = delegate.create(account);
+        cache.put(newAccount.getId(), newAccount);
+        log.info("Cuenta {} agregada al cache", newAccount.getId());
+        return newAccount;
+    }
+
+    @Override
+    public List<Account> findAll() {
+        return delegate.findAll();
+    }
+
+    @Override
+    public Account findById(Long id) {
+        Account cached = cache.get(id);
+
+        if(cached != null){
+            log.info("Cuenta {} encotrada en cache - NO se llamara al servicio real", id);
+            return cached;
+        }
+
+        log.info("Cuenta {} no esta en cache - Delegando al servicio real", id);
+        Account account = delegate.findById(id);
+        cache.put(id, account);
+        return account;
+    }
+}
