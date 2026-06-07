@@ -14,6 +14,7 @@ import com.mzrt.atlas_bank.transaction.service.event.TransactionExecutedEvent;
 import com.mzrt.atlas_bank.transaction.service.exception.FraudCheckException;
 import com.mzrt.atlas_bank.transaction.service.fee.FeeCalculator;
 import com.mzrt.atlas_bank.transaction.service.factory.TransactionFactory;
+import com.mzrt.atlas_bank.transaction.validation.chain.TransferValidator;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,14 +28,15 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
     private final AccountRepository accountRepository;
     private final List<FeeCalculator> feeCalculators;
     private final ApplicationEventPublisher publisher;
-    private final FraudChecker fraudChecker;
+    private final List<TransferValidator> validators;
 
-    public TransferService(TransactionRepository transactionRepository, AccountRepository accountRepository, List<FeeCalculator> feeCalculators, ApplicationEventPublisher publisher, FraudChecker fraudChecker) {
+
+    public TransferService(TransactionRepository transactionRepository, AccountRepository accountRepository, List<FeeCalculator> feeCalculators, ApplicationEventPublisher publisher, List<TransferValidator> validators) {
         super(transactionRepository);
         this.accountRepository = accountRepository;
         this.feeCalculators = feeCalculators;
         this.publisher = publisher;
-        this.fraudChecker = fraudChecker;
+        this.validators = validators;
     }
 
     @Transactional
@@ -64,22 +66,7 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
     @Override
     protected void validate(TransferContext context) {
 
-        if (context.accountFrom().getStatus() != AccountStatus.ACTIVE) {
-            throw new AccountNotActiveException(context.accountFrom().getId(), context.accountTo().getStatus().name());
-        }
-        if (context.accountTo().getStatus() != AccountStatus.ACTIVE) {
-            throw new AccountNotActiveException(context.accountTo().getId(), context.accountTo().getStatus().name());
-        }
-
-
-        if (context.accountFrom().getBalance().compareTo(context.amount()) < 0) {
-            throw new InsufficientFundsException(context.accountFrom().getId(), context.accountFrom().getBalance(), context.amount());
-        }
-
-
-        FraudCheckResult checkResult = fraudChecker.check(context.accountFrom().getId(), context.amount());
-
-        if (checkResult.blocked()) throw new FraudCheckException(checkResult.reason());
+        validators.forEach(validator -> validator.validate(context));
     }
 
     @Override
