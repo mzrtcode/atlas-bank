@@ -4,6 +4,7 @@ import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class AccountService implements IAccountService {
 
     @Transactional(readOnly = true)
     @Override
+    @Cacheable(value = "accounts", key = "#id")
     public Account findById(Long id){
         return accountRepository.findById(id).orElseThrow(
                 () -> new AccountNotFoundException(id)

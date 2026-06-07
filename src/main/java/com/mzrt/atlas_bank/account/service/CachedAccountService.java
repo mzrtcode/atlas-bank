@@ -1,7 +1,6 @@
 package com.mzrt.atlas_bank.account.service;
 
 import com.mzrt.atlas_bank.account.model.Account;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -11,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service
 @Slf4j
-@Primary
 public class CachedAccountService implements IAccountService{
 
     private final IAccountService delegate;
