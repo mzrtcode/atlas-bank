@@ -1,5 +1,6 @@
 package com.mzrt.atlas_bank.transaction.model;
 
+import com.mzrt.atlas_bank.transaction.model.state.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,6 +41,9 @@ public class Transaction {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Transient //Campo que no se guarda en la base de datos
+    private TransactionState state;
+
     private String createdBy;
     private String Description;
 
@@ -47,5 +51,24 @@ public class Transaction {
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
         if (this.status == null) this.status = TransactionStatus.EXECUTED;
+    }
+
+    public TransactionState getState() {
+        if(state == null){
+
+            state = switch(status){
+                case PENDING -> new PendingState();
+                case VALIDATED -> new ValidatedState();
+                case EXECUTED -> new ExecutedState();
+                case REJECTED -> new RejectedState();
+                case REVERSED -> new ReversedState();
+            };
+        }
+        return state;
+    }
+
+    public void advancedTo(TransactionState newState){
+        state = newState;
+        status = newState.status();
     }
 }

@@ -49,6 +49,9 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
                 .orElseThrow(() -> new AccountNotFoundException(toId));
 
         Transaction transaction = process(new TransferContext(from, to, amount));
+        transaction.advancedTo(transaction.getState().validate());
+        transaction.advancedTo(transaction.getState().execute());
+        transactionRepository.save(transaction);
 
         publisher.publishEvent(new TransactionExecutedEvent(
                 transaction.getId(),
@@ -66,7 +69,7 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
     @Override
     protected void validate(TransferContext context) {
 
-        validators.forEach(validator -> validator.validate(context));
+        validators.forEach(validator -> validator.validate(context  ));
     }
 
     @Override
