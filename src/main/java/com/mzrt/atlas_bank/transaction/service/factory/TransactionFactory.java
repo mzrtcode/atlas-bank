@@ -20,7 +20,7 @@ public class TransactionFactory {
                 .fee(fee)
                 .status(TransactionStatus.PENDING)
                 .build();
-        
+
         transaction.advancedTo(new PendingState());
         return transaction;
     }

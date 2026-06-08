@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class SuficientFundsValidator implements TransferValidator{
     @Override
     public void validate(TransferContext context) {
-        if (context.accountFrom().getBalance().compareTo(context.amount()) < 0) {
-            throw new InsufficientFundsException(context.accountFrom().getId(), context.accountFrom().getBalance(), context.amount());
+        if (context.accountFrom().getBalance().getAmount().compareTo(context.amount()) < 0) {
+            throw new InsufficientFundsException(context.accountFrom().getId(), context.accountFrom().getBalance().getAmount(), context.amount());
         }
     }
 }

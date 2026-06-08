@@ -3,6 +3,7 @@ package com.mzrt.atlas_bank.transaction.service.transfer;
 import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.model.AccountStatus;
+import com.mzrt.atlas_bank.shared.model.Money;
 import com.mzrt.atlas_bank.transaction.exception.AccountNotActiveException;
 import com.mzrt.atlas_bank.transaction.exception.InsufficientFundsException;
 import com.mzrt.atlas_bank.transaction.fraud.FraudCheckResult;
@@ -86,8 +87,12 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
     @Override
     protected void execute(TransferContext context, BigDecimal fee) {
 
-        context.accountFrom().setBalance(context.accountFrom().getBalance().subtract(context.amount()).subtract(fee));
-        context.accountTo().setBalance(context.accountTo().getBalance().add(context.amount()));
+        BigDecimal newFromBalance = context.accountFrom().getBalance().getAmount().subtract(fee).subtract(context.amount());
+        context.accountFrom().setBalance(Money.of(newFromBalance, context.accountFrom().getBalance().getCurrency()));
+
+        BigDecimal newToBalance = context.accountTo().getBalance().getAmount().add(context.amount());
+        context.accountTo().setBalance(Money.of(newToBalance, context.accountTo().getBalance().getCurrency()));
+
         accountRepository.save(context.accountFrom());
         accountRepository.save(context.accountTo());
 

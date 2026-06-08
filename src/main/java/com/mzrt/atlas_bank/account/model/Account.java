@@ -1,5 +1,7 @@
 package com.mzrt.atlas_bank.account.model;
 
+import com.mzrt.atlas_bank.shared.model.Currency;
+import com.mzrt.atlas_bank.shared.model.Money;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,12 +29,19 @@ public class Account {
     @Column(nullable = false)
     private String email;
 
+    @Embedded
+    @AttributeOverrides(
+            {
+                    @AttributeOverride(name = "amount", column = @Column(name = "balance", nullable = false)),
+                    @AttributeOverride(name = "currency", column = @Column(name = "currency", length = 3, nullable = false))
+            }
+    )
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private AccountType type; //Savings, Checking
 
     @Column(nullable = false)
-    private BigDecimal balance;
+    private Money balance;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
@@ -44,7 +53,7 @@ public class Account {
     @PrePersist
     public void prePersist(){
         if (status == null) this.status = AccountStatus.ACTIVE ;
-        if (balance == null) balance= BigDecimal.ZERO;
+        if (balance == null) balance = Money.zero(Currency.COP);
         createdAt = LocalDateTime.now();
     }
 }
