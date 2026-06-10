@@ -22,20 +22,17 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
 
     private final AccountRepository accountRepository;
     private final List<FeeCalculator> feeCalculators;
-    private final ApplicationEventPublisher publisher;
     private final List<TransferValidator> validators;
     private final TransferDomainService transferDomainService;
 
     public TransferService(TransactionRepository transactionRepository,
                            AccountRepository accountRepository,
                            List<FeeCalculator> feeCalculators,
-                           ApplicationEventPublisher publisher,
                            List<TransferValidator> validators,
                            TransferDomainService transferDomainService) {
         super(transactionRepository);
         this.accountRepository = accountRepository;
         this.feeCalculators = feeCalculators;
-        this.publisher = publisher;
         this.validators = validators;
         this.transferDomainService = transferDomainService;
     }
@@ -52,16 +49,9 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
         Transaction transaction = process(new TransferContext(from, to, amount));
         transaction.advancedTo(transaction.getState().validate());
         transaction.advancedTo(transaction.getState().execute());
+        transaction.maskAsExecuted();
         transactionRepository.save(transaction);
 
-        publisher.publishEvent(new TransactionExecutedEvent(
-                transaction.getId(),
-                transaction.getType(),
-                transaction.getSourceAccountId(),
-                transaction.getTargetAccountId(),
-                transaction.getAmount(),
-                transaction.getFee()
-        ));
 
         return transaction;
 
