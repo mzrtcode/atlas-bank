@@ -4,6 +4,7 @@ import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.transaction.exception.AccountNotActiveException;
 import com.mzrt.atlas_bank.transaction.exception.InsufficientFundsException;
 import com.mzrt.atlas_bank.transaction.service.exception.FraudCheckException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccountNotFoundException.class)
@@ -50,7 +52,9 @@ public class GlobalExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.INTERNAL_SERVER_ERROR, "Error interno del servidor"
         );
+
         problemDetail.setTitle("Error interno");
+        log.error("Error interno: ", e);
         return problemDetail;
     }
 

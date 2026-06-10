@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(2)
-public class SuficientFundsValidator implements TransferValidator{
+public class SufficientFundsValidator implements TransferValidator{
     @Override
     public void validate(TransferContext context) {
         if (context.accountFrom().getBalance().getAmount().compareTo(context.amount()) < 0) {
