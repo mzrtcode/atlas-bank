@@ -2,15 +2,14 @@ package com.mzrt.atlas_bank.transaction.service.transfer;
 
 import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.account.repository.DomainAccountRepository;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 import com.mzrt.atlas_bank.account.repository.AccountRepository;
 import com.mzrt.atlas_bank.transaction.repository.TransactionRepository;
 import com.mzrt.atlas_bank.transaction.service.domain.TransferDomainService;
-import com.mzrt.atlas_bank.transaction.service.event.TransactionExecutedEvent;
 import com.mzrt.atlas_bank.transaction.service.fee.FeeCalculator;
 import com.mzrt.atlas_bank.transaction.service.factory.TransactionFactory;
 import com.mzrt.atlas_bank.transaction.validation.chain.TransferValidator;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +19,13 @@ import java.util.List;
 @Service
 public class TransferService extends TransactionProcessor<TransferContext> implements ITransferService {
 
-    private final AccountRepository accountRepository;
+    private final DomainAccountRepository accountRepository;
     private final List<FeeCalculator> feeCalculators;
     private final List<TransferValidator> validators;
     private final TransferDomainService transferDomainService;
 
     public TransferService(TransactionRepository transactionRepository,
-                           AccountRepository accountRepository,
+                           DomainAccountRepository accountRepository,
                            List<FeeCalculator> feeCalculators,
                            List<TransferValidator> validators,
                            TransferDomainService transferDomainService) {
