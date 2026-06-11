@@ -5,7 +5,6 @@ import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.repository.DomainAccountRepository;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 import com.mzrt.atlas_bank.transaction.repository.TransactionDomainRepository;
-import com.mzrt.atlas_bank.transaction.repository.TransactionRepository;
 import com.mzrt.atlas_bank.transaction.service.domain.TransferDomainService;
 import com.mzrt.atlas_bank.transaction.service.fee.FeeCalculator;
 import com.mzrt.atlas_bank.transaction.service.factory.TransactionFactory;
@@ -46,9 +45,7 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
                 .orElseThrow(() -> new AccountNotFoundException(toId));
 
         Transaction transaction = process(new TransferContext(from, to, amount));
-        transaction.advancedTo(transaction.getState().validate());
-        transaction.advancedTo(transaction.getState().execute());
-        transaction.maskAsExecuted();
+        transaction.executeTransfer();
         transactionRepository.save(transaction);
 
 

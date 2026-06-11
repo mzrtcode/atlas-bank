@@ -2,9 +2,7 @@ package com.mzrt.atlas_bank.shared.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,7 +18,7 @@ import java.util.stream.Collectors;
 @EnableWebSecurity //Ya se habilita solo con el Starter, pero es buena practica dejarlo
 public class SecurityConfig {
 
-    @Bean
+    //@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth ->  auth
@@ -69,6 +67,16 @@ public class SecurityConfig {
         });
 
         return converter;
+    }
+
+    @Bean
+    public SecurityFilterChain disableSecurityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
+                .headers(headers ->
+                        headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .build();
     }
 
 }
