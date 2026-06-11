@@ -4,7 +4,7 @@ import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.repository.DomainAccountRepository;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
-import com.mzrt.atlas_bank.account.repository.AccountRepository;
+import com.mzrt.atlas_bank.transaction.repository.TransactionDomainRepository;
 import com.mzrt.atlas_bank.transaction.repository.TransactionRepository;
 import com.mzrt.atlas_bank.transaction.service.domain.TransferDomainService;
 import com.mzrt.atlas_bank.transaction.service.fee.FeeCalculator;
@@ -24,7 +24,7 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
     private final List<TransferValidator> validators;
     private final TransferDomainService transferDomainService;
 
-    public TransferService(TransactionRepository transactionRepository,
+    public TransferService(TransactionDomainRepository transactionRepository,
                            DomainAccountRepository accountRepository,
                            List<FeeCalculator> feeCalculators,
                            List<TransferValidator> validators,
