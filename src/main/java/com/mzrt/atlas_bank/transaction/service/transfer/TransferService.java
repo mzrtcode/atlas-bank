@@ -3,6 +3,8 @@ package com.mzrt.atlas_bank.transaction.service.transfer;
 import com.mzrt.atlas_bank.account.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.account.model.Account;
 import com.mzrt.atlas_bank.account.repository.DomainAccountRepository;
+import com.mzrt.atlas_bank.application.port.in.TransferMoneyUseCase;
+import com.mzrt.atlas_bank.application.port.out.AccountRepositoryPort;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 import com.mzrt.atlas_bank.transaction.repository.TransactionDomainRepository;
 import com.mzrt.atlas_bank.transaction.service.domain.TransferDomainService;
@@ -16,9 +18,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class TransferService extends TransactionProcessor<TransferContext> implements ITransferService {
+public class TransferService extends TransactionProcessor<TransferContext> implements ITransferService, TransferMoneyUseCase {
 
-    private final DomainAccountRepository accountRepository;
+    private final AccountRepositoryPort accountRepository;
     private final List<FeeCalculator> feeCalculators;
     private final List<TransferValidator> validators;
     private final TransferDomainService transferDomainService;

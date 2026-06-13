@@ -1,11 +1,11 @@
 package com.mzrt.atlas_bank.transaction.controller;
 
+import com.mzrt.atlas_bank.application.port.in.TransferMoneyUseCase;
 import com.mzrt.atlas_bank.transaction.dto.TransactionResponse;
 import com.mzrt.atlas_bank.transaction.dto.TransferRequest;
 import com.mzrt.atlas_bank.transaction.mapper.TransactionMapper;
 import com.mzrt.atlas_bank.transaction.model.Transaction;
 import com.mzrt.atlas_bank.transaction.service.ITransactionQueryService;
-import com.mzrt.atlas_bank.transaction.service.transfer.ITransferService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,14 +19,14 @@ import java.util.List;
 public class TransactionController {
 
     private final ITransactionQueryService transactionQueryService;
-    private final ITransferService transferService;
+    private final TransferMoneyUseCase transferMoneyUseCase;
     private final TransactionMapper transactionMapper;
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)
     public TransactionResponse transfer(@Valid @RequestBody TransferRequest request)
     {
-        Transaction transaction = transferService.execute(
+        Transaction transaction = transferMoneyUseCase.execute(
                 request.fromAccountId(),
                 request.toAccountId(),
                 request.amount());
