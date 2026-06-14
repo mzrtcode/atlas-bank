@@ -1,15 +1,16 @@
 package com.mzrt.atlas_bank.transaction.service.transfer;
 
-import com.mzrt.atlas_bank.domain.model.exception.AccountNotFoundException;
+import com.mzrt.atlas_bank.domain.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.domain.model.account.Account;
 import com.mzrt.atlas_bank.application.port.in.TransferMoneyUseCase;
 import com.mzrt.atlas_bank.application.port.out.AccountRepositoryPort;
-import com.mzrt.atlas_bank.transaction.model.Transaction;
+import com.mzrt.atlas_bank.domain.model.transaction.TransferContext;
+import com.mzrt.atlas_bank.domain.model.transaction.Transaction;
 import com.mzrt.atlas_bank.transaction.repository.TransactionDomainRepository;
-import com.mzrt.atlas_bank.transaction.service.domain.TransferDomainService;
-import com.mzrt.atlas_bank.transaction.service.fee.FeeCalculator;
+import com.mzrt.atlas_bank.domain.service.TransferDomainService;
+import com.mzrt.atlas_bank.domain.strategy.fee.FeeCalculator;
 import com.mzrt.atlas_bank.transaction.service.factory.TransactionFactory;
-import com.mzrt.atlas_bank.transaction.validation.chain.TransferValidator;
+import com.mzrt.atlas_bank.domain.validation.TransferValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

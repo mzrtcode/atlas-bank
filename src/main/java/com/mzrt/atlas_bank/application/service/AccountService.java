@@ -1,7 +1,7 @@
 package com.mzrt.atlas_bank.application.service;
 
 import com.mzrt.atlas_bank.application.port.out.AccountRepositoryPort;
-import com.mzrt.atlas_bank.domain.model.exception.AccountNotFoundException;
+import com.mzrt.atlas_bank.domain.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.domain.model.account.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;

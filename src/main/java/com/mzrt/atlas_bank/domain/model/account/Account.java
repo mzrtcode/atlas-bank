@@ -1,6 +1,6 @@
 package com.mzrt.atlas_bank.domain.model.account;
 
-import com.mzrt.atlas_bank.domain.model.exception.InsufficientFundsException;
+import com.mzrt.atlas_bank.domain.exception.InsufficientFundsException;
 import com.mzrt.atlas_bank.domain.model.shared.Currency;
 import com.mzrt.atlas_bank.domain.model.shared.Email;
 import com.mzrt.atlas_bank.domain.model.shared.Money;

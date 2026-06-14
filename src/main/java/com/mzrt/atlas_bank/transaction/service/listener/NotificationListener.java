@@ -1,6 +1,6 @@
 package com.mzrt.atlas_bank.transaction.service.listener;
 
-import com.mzrt.atlas_bank.transaction.service.event.TransactionExecutedEvent;
+import com.mzrt.atlas_bank.domain.event.TransactionExecutedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

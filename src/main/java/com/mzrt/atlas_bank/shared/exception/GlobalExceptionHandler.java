@@ -1,9 +1,9 @@
 package com.mzrt.atlas_bank.shared.exception;
 
-import com.mzrt.atlas_bank.domain.model.exception.AccountNotFoundException;
-import com.mzrt.atlas_bank.domain.model.exception.AccountNotActiveException;
-import com.mzrt.atlas_bank.domain.model.exception.InsufficientFundsException;
-import com.mzrt.atlas_bank.transaction.service.exception.FraudCheckException;
+import com.mzrt.atlas_bank.domain.exception.AccountNotFoundException;
+import com.mzrt.atlas_bank.domain.exception.AccountNotActiveException;
+import com.mzrt.atlas_bank.domain.exception.InsufficientFundsException;
+import com.mzrt.atlas_bank.domain.model.FraudCheckException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
