@@ -1,6 +1,6 @@
 package com.mzrt.atlas_bank.transaction.service.transfer;
 
-import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.domain.model.account.Account;
 
 import java.math.BigDecimal;
 

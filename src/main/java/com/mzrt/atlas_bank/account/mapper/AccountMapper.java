@@ -2,15 +2,14 @@ package com.mzrt.atlas_bank.account.mapper;
 
 import com.mzrt.atlas_bank.account.dto.AccountResponse;
 import com.mzrt.atlas_bank.account.dto.CreateAccountRequest;
-import com.mzrt.atlas_bank.account.model.Account;
-import com.mzrt.atlas_bank.shared.model.Currency;
-import com.mzrt.atlas_bank.shared.model.Email;
-import com.mzrt.atlas_bank.shared.model.Money;
+import com.mzrt.atlas_bank.domain.model.account.Account;
+import com.mzrt.atlas_bank.domain.model.shared.Currency;
+import com.mzrt.atlas_bank.domain.model.shared.Email;
+import com.mzrt.atlas_bank.domain.model.shared.Money;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-import java.awt.*;
 import java.math.BigDecimal;
 
 @Mapper(componentModel = "spring")

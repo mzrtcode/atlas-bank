@@ -1,7 +1,7 @@
 package com.mzrt.atlas_bank.transaction.service.domain;
 
-import com.mzrt.atlas_bank.account.model.Account;
-import com.mzrt.atlas_bank.shared.model.Money;
+import com.mzrt.atlas_bank.domain.model.account.Account;
+import com.mzrt.atlas_bank.domain.model.shared.Money;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,7 +13,7 @@ public class TransferDomainService {
         Money totalDebit = Money.of(amount.add(fee), from.getBalance().getCurrency());
         Money depositAmount = Money.of(amount, to.getBalance().getCurrency());
 
-        from.withDraw(totalDebit);
+        from.withdraw(totalDebit);
         to.deposit(depositAmount);
     }
 }

@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.account.model;
+package com.mzrt.atlas_bank.domain.model.account;
 
 public enum AccountType {
     SAVINGS,

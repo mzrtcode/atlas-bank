@@ -1,6 +1,6 @@
 package com.mzrt.atlas_bank.application.port.out;
 
-import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.domain.model.account.Account;
 
 import java.util.List;
 import java.util.Optional;

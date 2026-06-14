@@ -1,6 +1,6 @@
 package com.mzrt.atlas_bank.account.service;
 
-import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.domain.model.account.Account;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

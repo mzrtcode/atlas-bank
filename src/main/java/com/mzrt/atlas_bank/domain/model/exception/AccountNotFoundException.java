@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.account.exception;
+package com.mzrt.atlas_bank.domain.model.exception;
 
 public class AccountNotFoundException extends RuntimeException {
     public AccountNotFoundException(Long id) {

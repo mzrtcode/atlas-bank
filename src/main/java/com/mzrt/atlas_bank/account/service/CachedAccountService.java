@@ -1,10 +1,8 @@
 package com.mzrt.atlas_bank.account.service;
 
-import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.domain.model.account.Account;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;

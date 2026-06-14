@@ -1,12 +1,9 @@
 package com.mzrt.atlas_bank.account.facade;
 
 import com.mzrt.atlas_bank.account.dto.DashboardResponse;
-import com.mzrt.atlas_bank.account.mapper.AccountMapper;
-import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.domain.model.account.Account;
 import com.mzrt.atlas_bank.account.service.IAccountService;
 import com.mzrt.atlas_bank.transaction.dto.TransactionResponse;
-import com.mzrt.atlas_bank.transaction.fraud.FraudCheckResult;
-import com.mzrt.atlas_bank.transaction.fraud.FraudChecker;
 import com.mzrt.atlas_bank.transaction.mapper.TransactionMapper;
 import com.mzrt.atlas_bank.transaction.service.ITransactionQueryService;
 import lombok.RequiredArgsConstructor;

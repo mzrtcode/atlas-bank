@@ -5,7 +5,7 @@ import com.mzrt.atlas_bank.account.dto.CreateAccountRequest;
 import com.mzrt.atlas_bank.account.dto.DashboardResponse;
 import com.mzrt.atlas_bank.account.facade.AccountDashboardFacade;
 import com.mzrt.atlas_bank.account.mapper.AccountMapper;
-import com.mzrt.atlas_bank.account.model.Account;
+import com.mzrt.atlas_bank.domain.model.account.Account;
 import com.mzrt.atlas_bank.account.service.IAccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
