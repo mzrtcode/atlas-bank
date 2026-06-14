@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.account.service;
+package com.mzrt.atlas_bank.application.service;
 
 import com.mzrt.atlas_bank.application.port.out.AccountRepositoryPort;
 import com.mzrt.atlas_bank.domain.model.exception.AccountNotFoundException;

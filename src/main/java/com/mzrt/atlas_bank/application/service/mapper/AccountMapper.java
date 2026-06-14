@@ -1,7 +1,7 @@
-package com.mzrt.atlas_bank.account.mapper;
+package com.mzrt.atlas_bank.application.service.mapper;
 
-import com.mzrt.atlas_bank.account.dto.AccountResponse;
-import com.mzrt.atlas_bank.account.dto.CreateAccountRequest;
+import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.AccountResponse;
+import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.CreateAccountRequest;
 import com.mzrt.atlas_bank.domain.model.account.Account;
 import com.mzrt.atlas_bank.domain.model.shared.Currency;
 import com.mzrt.atlas_bank.domain.model.shared.Email;

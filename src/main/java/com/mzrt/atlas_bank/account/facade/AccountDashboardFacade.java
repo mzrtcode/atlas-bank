@@ -1,8 +1,8 @@
 package com.mzrt.atlas_bank.account.facade;
 
-import com.mzrt.atlas_bank.account.dto.DashboardResponse;
+import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.DashboardResponse;
 import com.mzrt.atlas_bank.domain.model.account.Account;
-import com.mzrt.atlas_bank.account.service.IAccountService;
+import com.mzrt.atlas_bank.application.service.IAccountService;
 import com.mzrt.atlas_bank.transaction.dto.TransactionResponse;
 import com.mzrt.atlas_bank.transaction.mapper.TransactionMapper;
 import com.mzrt.atlas_bank.transaction.service.ITransactionQueryService;

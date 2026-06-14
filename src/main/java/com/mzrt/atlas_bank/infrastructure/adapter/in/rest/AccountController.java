@@ -1,12 +1,12 @@
-package com.mzrt.atlas_bank.account.controller;
+package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
-import com.mzrt.atlas_bank.account.dto.AccountResponse;
-import com.mzrt.atlas_bank.account.dto.CreateAccountRequest;
-import com.mzrt.atlas_bank.account.dto.DashboardResponse;
+import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.AccountResponse;
+import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.CreateAccountRequest;
+import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.DashboardResponse;
 import com.mzrt.atlas_bank.account.facade.AccountDashboardFacade;
-import com.mzrt.atlas_bank.account.mapper.AccountMapper;
+import com.mzrt.atlas_bank.application.service.mapper.AccountMapper;
 import com.mzrt.atlas_bank.domain.model.account.Account;
-import com.mzrt.atlas_bank.account.service.IAccountService;
+import com.mzrt.atlas_bank.application.service.IAccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

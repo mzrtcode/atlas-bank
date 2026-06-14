@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.account.service;
+package com.mzrt.atlas_bank.application.service;
 
 import com.mzrt.atlas_bank.domain.model.account.Account;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-public class CachedAccountService implements IAccountService{
+public class CachedAccountService implements IAccountService {
 
     private final IAccountService delegate;
     private final Map<Long, Account> cache = new ConcurrentHashMap<>();
