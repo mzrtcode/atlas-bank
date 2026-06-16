@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.transaction.fraud;
+package com.mzrt.atlas_bank.infrastructure.adapter.out.fraud;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

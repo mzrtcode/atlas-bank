@@ -2,7 +2,6 @@ package com.mzrt.atlas_bank.domain.model.transaction;
 
 import com.mzrt.atlas_bank.domain.model.transaction.state.*;
 import com.mzrt.atlas_bank.domain.event.TransactionExecutedEvent;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;

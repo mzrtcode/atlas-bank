@@ -1,7 +1,7 @@
-package com.mzrt.atlas_bank.transaction.service.transfer;
+package com.mzrt.atlas_bank.application.service;
 
+import com.mzrt.atlas_bank.application.port.out.TransactionRepositoryPort;
 import com.mzrt.atlas_bank.domain.model.transaction.Transaction;
-import com.mzrt.atlas_bank.transaction.repository.TransactionDomainRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public abstract class TransactionProcessor<C> {
 
-    protected final TransactionDomainRepository transactionRepository;
+    protected final TransactionRepositoryPort transactionRepository;
 
     @Transactional
     public Transaction process(C context) {

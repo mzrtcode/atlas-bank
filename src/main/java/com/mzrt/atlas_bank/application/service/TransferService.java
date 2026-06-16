@@ -1,15 +1,14 @@
-package com.mzrt.atlas_bank.transaction.service.transfer;
+package com.mzrt.atlas_bank.application.service;
 
+import com.mzrt.atlas_bank.application.port.out.TransactionRepositoryPort;
 import com.mzrt.atlas_bank.domain.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.domain.model.account.Account;
 import com.mzrt.atlas_bank.application.port.in.TransferMoneyUseCase;
 import com.mzrt.atlas_bank.application.port.out.AccountRepositoryPort;
 import com.mzrt.atlas_bank.domain.model.transaction.TransferContext;
 import com.mzrt.atlas_bank.domain.model.transaction.Transaction;
-import com.mzrt.atlas_bank.transaction.repository.TransactionDomainRepository;
 import com.mzrt.atlas_bank.domain.service.TransferDomainService;
 import com.mzrt.atlas_bank.domain.strategy.fee.FeeCalculator;
-import com.mzrt.atlas_bank.transaction.service.factory.TransactionFactory;
 import com.mzrt.atlas_bank.domain.validation.TransferValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,7 @@ public class TransferService extends TransactionProcessor<TransferContext> imple
     private final List<TransferValidator> validators;
     private final TransferDomainService transferDomainService;
 
-    public TransferService(TransactionDomainRepository transactionRepository,
+    public TransferService(TransactionRepositoryPort transactionRepository,
                            AccountRepositoryPort accountRepository,
                            List<FeeCalculator> feeCalculators,
                            List<TransferValidator> validators,

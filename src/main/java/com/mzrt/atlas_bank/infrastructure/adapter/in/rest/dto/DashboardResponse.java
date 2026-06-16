@@ -1,6 +1,5 @@
 package com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto;
 
-import com.mzrt.atlas_bank.transaction.dto.TransactionResponse;
 import lombok.Builder;
 
 import java.math.BigDecimal;

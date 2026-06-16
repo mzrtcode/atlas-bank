@@ -1,7 +1,7 @@
-package com.mzrt.atlas_bank.transaction.service;
+package com.mzrt.atlas_bank.application.service;
 
+import com.mzrt.atlas_bank.application.port.out.TransactionRepositoryPort;
 import com.mzrt.atlas_bank.domain.model.transaction.Transaction;
-import com.mzrt.atlas_bank.transaction.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TransactionQueryService implements ITransactionQueryService{
 
-    private final TransactionRepository transactionRepository;
+    private final TransactionRepositoryPort transactionRepository;
 
     @Transactional(readOnly = true)
     @Override

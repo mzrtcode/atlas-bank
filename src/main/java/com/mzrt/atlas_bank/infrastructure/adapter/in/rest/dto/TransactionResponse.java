@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.transaction.dto;
+package com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
