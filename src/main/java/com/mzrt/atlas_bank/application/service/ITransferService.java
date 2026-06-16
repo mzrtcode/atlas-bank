@@ -1,9 +1,0 @@
-package com.mzrt.atlas_bank.application.service;
-
-import com.mzrt.atlas_bank.domain.model.transaction.Transaction;
-
-import java.math.BigDecimal;
-
-public interface ITransferService {
-    Transaction execute(Long fromAccountId, Long toAccountId, BigDecimal amount);
-}

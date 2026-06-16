@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.shared.model;
+package com.mzrt.atlas_bank.infrastructure.adapter.out.persistence;
 
 import com.mzrt.atlas_bank.domain.model.shared.Currency;
 import jakarta.persistence.Column;

@@ -2,11 +2,7 @@ package com.mzrt.atlas_bank.domain.validation;
 
 import com.mzrt.atlas_bank.domain.exception.InsufficientFundsException;
 import com.mzrt.atlas_bank.domain.model.transaction.TransferContext;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
-@Component
-@Order(2)
 public class SufficientFundsValidator implements TransferValidator{
     @Override
     public void validate(TransferContext context) {

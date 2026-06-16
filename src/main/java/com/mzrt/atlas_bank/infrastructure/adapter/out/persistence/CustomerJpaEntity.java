@@ -1,6 +1,6 @@
-package com.mzrt.atlas_bank.customer.model;
+package com.mzrt.atlas_bank.infrastructure.adapter.out.persistence;
 
-import com.mzrt.atlas_bank.shared.model.Email;
+import com.mzrt.atlas_bank.domain.model.customer.CustomerStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Customer {
+public class CustomerJpaEntity {
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -41,7 +42,4 @@ public class Customer {
         }
     }
 
-    public boolean isActive(){
-        return this.status == CustomerStatus.ACTIVE;
-    }
 }

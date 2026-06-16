@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class TransferService extends TransactionProcessor<TransferContext> implements ITransferService, TransferMoneyUseCase {
+public class TransferService extends TransactionProcessor<TransferContext> implements TransferMoneyUseCase {
 
     private final AccountRepositoryPort accountRepository;
     private final List<FeeCalculator> feeCalculators;

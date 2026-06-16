@@ -1,5 +1,6 @@
 package com.mzrt.atlas_bank.application.service;
 
+import com.mzrt.atlas_bank.application.port.in.GetTransactionUseCase;
 import com.mzrt.atlas_bank.application.port.out.TransactionRepositoryPort;
 import com.mzrt.atlas_bank.domain.model.transaction.Transaction;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TransactionQueryService implements ITransactionQueryService{
+public class TransactionQueryService implements GetTransactionUseCase {
 
     private final TransactionRepositoryPort transactionRepository;
 

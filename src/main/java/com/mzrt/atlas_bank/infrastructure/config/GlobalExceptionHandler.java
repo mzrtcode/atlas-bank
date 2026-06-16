@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.shared.exception;
+package com.mzrt.atlas_bank.infrastructure.config;
 
 import com.mzrt.atlas_bank.domain.exception.AccountNotFoundException;
 import com.mzrt.atlas_bank.domain.exception.AccountNotActiveException;

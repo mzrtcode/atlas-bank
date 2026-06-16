@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.customer.model;
+package com.mzrt.atlas_bank.domain.model.customer;
 
 public enum CustomerStatus {
     ACTIVE,

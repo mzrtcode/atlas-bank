@@ -1,12 +1,12 @@
 package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
+import com.mzrt.atlas_bank.application.port.in.CreateAccountUseCase;
+import com.mzrt.atlas_bank.application.port.in.GetAccountUseCase;
+import com.mzrt.atlas_bank.application.port.in.ListAccountUseCase;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.AccountResponse;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.CreateAccountRequest;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.DashboardResponse;
-import com.mzrt.atlas_bank.account.facade.AccountDashboardFacade;
-import com.mzrt.atlas_bank.application.service.mapper.AccountMapper;
 import com.mzrt.atlas_bank.domain.model.account.Account;
-import com.mzrt.atlas_bank.application.service.IAccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,20 +19,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final IAccountService accountService;
+    private final ListAccountUseCase listAccountUseCase;
+    private final CreateAccountUseCase createAccountUseCase;
     private final AccountMapper accountMapper;
+    private final GetAccountUseCase getAccountUseCase;
     private final AccountDashboardFacade dashboardFacade;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AccountResponse create(@Valid @RequestBody CreateAccountRequest request){
         Account account = accountMapper.toEntity(request);
-        return accountMapper.toResponse(accountService.create(account));
+        return accountMapper.toResponse(createAccountUseCase.create(account));
     }
 
     @GetMapping
     public List<AccountResponse> findAll(){
-        return accountService.findAll().stream()
+        return listAccountUseCase.findAll().stream()
                 .map(accountMapper::toResponse)
                 .toList();
 
@@ -40,7 +42,7 @@ public class AccountController {
 
     @GetMapping("/{id}")
     public AccountResponse findById(@PathVariable Long id){
-        return accountMapper.toResponse(accountService.findById(id));
+        return accountMapper.toResponse(getAccountUseCase.findById(id));
     }
 
     @GetMapping("/{id}/dashboard")

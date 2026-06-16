@@ -3,8 +3,6 @@ package com.mzrt.atlas_bank.infrastructure.adapter.out.persistence;
 import com.mzrt.atlas_bank.domain.model.account.AccountStatus;
 import com.mzrt.atlas_bank.domain.model.account.AccountType;
 import com.mzrt.atlas_bank.domain.model.shared.Currency;
-import com.mzrt.atlas_bank.shared.model.Email;
-import com.mzrt.atlas_bank.shared.model.Money;
 import jakarta.persistence.*;
 import lombok.*;
 

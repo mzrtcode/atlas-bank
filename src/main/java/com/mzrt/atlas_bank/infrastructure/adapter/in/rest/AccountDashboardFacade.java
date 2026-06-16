@@ -1,11 +1,11 @@
-package com.mzrt.atlas_bank.account.facade;
+package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
+import com.mzrt.atlas_bank.application.port.in.GetAccountUseCase;
+import com.mzrt.atlas_bank.application.port.in.GetTransactionUseCase;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.DashboardResponse;
 import com.mzrt.atlas_bank.domain.model.account.Account;
-import com.mzrt.atlas_bank.application.service.IAccountService;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.TransactionResponse;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.TransactionMapper;
-import com.mzrt.atlas_bank.application.service.ITransactionQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AccountDashboardFacade {
-    private final IAccountService accountService;
-    private final ITransactionQueryService transactionQueryService;
+    private final GetAccountUseCase accountService;
+    private final GetTransactionUseCase transactionQueryService;
     private final TransactionMapper transactionMapper;
 
 

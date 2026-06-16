@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.application.service.mapper;
+package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.AccountResponse;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.CreateAccountRequest;

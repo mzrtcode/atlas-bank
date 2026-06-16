@@ -1,13 +1,9 @@
 package com.mzrt.atlas_bank.domain.strategy.fee;
 
 import com.mzrt.atlas_bank.domain.model.account.AccountType;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
-@Order(2)
 public class SavingsFeeCalculator implements FeeCalculator {
     @Override
     public boolean supports(AccountType accountType) {

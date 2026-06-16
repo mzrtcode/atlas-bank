@@ -1,4 +1,4 @@
-package com.mzrt.atlas_bank.shared.model;
+package com.mzrt.atlas_bank.infrastructure.adapter.out.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 @Embeddable
 @Getter
 @NoArgsConstructor
-
 public class Email {
 
     private static final Pattern EMAIL_PATTERN =

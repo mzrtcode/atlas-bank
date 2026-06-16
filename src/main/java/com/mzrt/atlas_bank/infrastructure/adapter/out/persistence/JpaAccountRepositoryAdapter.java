@@ -12,7 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JpaAccountRepositoryAdapter implements AccountRepositoryPort {
 
-    private final SpingDataAccountRepository repository;
+    private final SpringDataAccountRepository repository;
     private final AccountPersistenceMapper mapper;
 
     @Override
