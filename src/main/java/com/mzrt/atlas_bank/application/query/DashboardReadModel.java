@@ -1,13 +1,12 @@
-package com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto;
+package com.mzrt.atlas_bank.application.query;
 
-import com.mzrt.atlas_bank.application.query.TransactionReadModel;
 import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Builder
-public record DashboardResponse(
+public record DashboardReadModel(
         Long accountId,
         String accountNumber,
         String ownerName,
@@ -17,5 +16,4 @@ public record DashboardResponse(
         List<TransactionReadModel> recentTransactions,
         boolean fraudBlocked,
         String fraudReason
-
 ) { }

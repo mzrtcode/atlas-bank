@@ -1,8 +1,10 @@
 package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
 import com.mzrt.atlas_bank.application.command.TransferMoneyCommand;
-import com.mzrt.atlas_bank.application.port.in.GetTransactionUseCase;
+import com.mzrt.atlas_bank.application.port.in.GetTransactionsByAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.TransferMoneyUseCase;
+import com.mzrt.atlas_bank.application.query.GetAccountStatementQuery;
+import com.mzrt.atlas_bank.application.query.TransactionReadModel;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.TransactionResponse;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.TransferRequest;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.TransactionMapper;
@@ -19,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TransactionController {
 
-    private final GetTransactionUseCase transactionQueryService;
+    private final GetTransactionsByAccountUseCase transactionQueryService;
     private final TransferMoneyUseCase transferMoneyUseCase;
     private final TransactionMapper transactionMapper;
 
@@ -28,7 +30,7 @@ public class TransactionController {
     public TransactionResponse transfer(@Valid @RequestBody TransferRequest request) {
 
         TransferMoneyCommand command = TransferMoneyCommand.builder()
-                .toId(request.fromAccountId())
+                .fromId(request.fromAccountId())
                 .toId(request.toAccountId())
                 .amount(request.amount())
                 .build();
@@ -38,9 +40,9 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}/transactions")
-    public List<TransactionResponse> getTransactions(@PathVariable Long id){
-        return transactionQueryService.getByAccountId(id).stream()
-                .map(transactionMapper::toResponse)
-                .toList();
+    public List<TransactionReadModel> getTransactions(@PathVariable Long id){
+
+        GetAccountStatementQuery query = new GetAccountStatementQuery(id);
+        return transactionQueryService.getByAccountId(query);
     }
 }

@@ -1,8 +1,11 @@
 package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
+import com.mzrt.atlas_bank.application.facade.AccountDashboardFacade;
 import com.mzrt.atlas_bank.application.port.in.CreateAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.GetAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.ListAccountUseCase;
+import com.mzrt.atlas_bank.application.query.DashboardReadModel;
+import com.mzrt.atlas_bank.application.query.TransactionReadModel;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.AccountResponse;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.CreateAccountRequest;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.DashboardResponse;
@@ -47,7 +50,7 @@ public class AccountController {
 
     @GetMapping("/{id}/dashboard")
     @ResponseStatus(HttpStatus.OK)
-    public DashboardResponse getDashboard(@PathVariable Long id){
+    public DashboardReadModel getDashboard(@PathVariable Long id){
         return dashboardFacade.getDashboard(id);
     }
 
