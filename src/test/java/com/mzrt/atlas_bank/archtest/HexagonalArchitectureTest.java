@@ -20,4 +20,32 @@ public class HexagonalArchitectureTest {
                     .should().dependOnClassesThat()
                     .resideInAPackage("..infrastructure..")
                     .because("El dominio es el núcleo puro — no puede conocer la existencia de adaptadores ni configuraciones");
+
+
+    @ArchTest
+    static final ArchRule domain_should_not_depend_on_application =
+            noClasses()
+                    .that().resideInAPackage("..domain..")
+                    .should().dependOnClassesThat()
+                    .resideInAPackage("..application..")
+                    .because("El dominio es autosuficiente — no conoce use cases, comandos ni services");
+
+    @ArchTest
+    static final ArchRule application_should_not_depend_on_infrastructure =
+            noClasses()
+                    .that().resideInAPackage("..application..")
+                    .should().dependOnClassesThat()
+                    .resideInAPackage("..infrastructure..")
+                    .because("La capa de aplicacion usa puertos, nunca implementaciones concretas");
+
+
+    @ArchTest
+    static final ArchRule domain_should_not_depend_on_spring =
+            noClasses()
+                    .that().resideInAPackage("..domain..")
+                    .should().dependOnClassesThat()
+                    .resideInAPackage("org.springframework..")
+                    .because("La capa dominio debe ser Java puro y no debe depender del framework");
+
 }
+

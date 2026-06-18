@@ -6,7 +6,7 @@ import com.mzrt.atlas_bank.domain.strategy.fee.CheckingFeeCalculator;
 import com.mzrt.atlas_bank.domain.strategy.fee.DefaultFeeCalculator;
 import com.mzrt.atlas_bank.domain.strategy.fee.SavingsFeeCalculator;
 import com.mzrt.atlas_bank.domain.validation.AccountStatusValidator;
-import com.mzrt.atlas_bank.domain.validation.FraudValidator;
+import com.mzrt.atlas_bank.application.validation.FraudValidator;
 import com.mzrt.atlas_bank.domain.validation.SufficientFundsValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,13 +1,14 @@
-package com.mzrt.atlas_bank.domain.validation;
+package com.mzrt.atlas_bank.application.validation;
 
 import com.mzrt.atlas_bank.application.port.out.FraudCheckPort;
 import com.mzrt.atlas_bank.domain.model.shared.FraudCheckResult;
 import com.mzrt.atlas_bank.domain.model.FraudCheckException;
 import com.mzrt.atlas_bank.domain.model.transaction.TransferContext;
+import com.mzrt.atlas_bank.domain.validation.TransferValidator;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class FraudValidator implements TransferValidator{
+public class FraudValidator implements TransferValidator {
 
     private final FraudCheckPort fraudChecker;
 
