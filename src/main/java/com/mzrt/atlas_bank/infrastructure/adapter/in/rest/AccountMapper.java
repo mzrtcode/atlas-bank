@@ -19,6 +19,10 @@ public interface AccountMapper {
     @Mapping(target = "email", source = "email", qualifiedByName = "fromEmail")
     AccountResponse toResponse(Account account);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "customerId", ignore = true)
     @Mapping(target = "balance", source = "balance", qualifiedByName = "toMoney")
     @Mapping(target = "email", source = "email", qualifiedByName = "toEmail")
     Account toEntity(CreateAccountRequest accountRequest);
