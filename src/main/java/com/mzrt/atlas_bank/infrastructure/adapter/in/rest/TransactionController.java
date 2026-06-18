@@ -1,5 +1,6 @@
 package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
+import com.mzrt.atlas_bank.application.command.TransferMoneyCommand;
 import com.mzrt.atlas_bank.application.port.in.GetTransactionUseCase;
 import com.mzrt.atlas_bank.application.port.in.TransferMoneyUseCase;
 import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.TransactionResponse;
@@ -24,12 +25,15 @@ public class TransactionController {
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionResponse transfer(@Valid @RequestBody TransferRequest request)
-    {
-        Transaction transaction = transferMoneyUseCase.execute(
-                request.fromAccountId(),
-                request.toAccountId(),
-                request.amount());
+    public TransactionResponse transfer(@Valid @RequestBody TransferRequest request) {
+
+        TransferMoneyCommand command = TransferMoneyCommand.builder()
+                .toId(request.fromAccountId())
+                .toId(request.toAccountId())
+                .amount(request.amount())
+                .build();
+
+        Transaction transaction = transferMoneyUseCase.transfer(command);
         return  transactionMapper.toResponse(transaction);
     }
 
