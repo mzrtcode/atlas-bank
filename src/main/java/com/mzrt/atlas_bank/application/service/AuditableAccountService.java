@@ -1,5 +1,6 @@
 package com.mzrt.atlas_bank.application.service;
 
+import com.mzrt.atlas_bank.application.command.CreateAccountCommand;
 import com.mzrt.atlas_bank.application.port.in.CreateAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.GetAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.ListAccountUseCase;
@@ -42,11 +43,11 @@ public class AuditableAccountService implements CreateAccountUseCase, ListAccoun
 
 
     @Override
-    public Account create(Account account) {
+    public Account create(CreateAccountCommand command) {
         log.info("Creando una cuenta - numero: {}, titular: {}",
-                account.getAccountNumber(), account.getOwnerName());
+                command.accountNumber(), command.ownerName());
 
-        Account createdAccount = createAccountUseCase.create(account);
+        Account createdAccount = createAccountUseCase.create(command);
         log.info("Cuenta creada exitosamente - ID: {}", createdAccount.getId());
 
         return createdAccount;

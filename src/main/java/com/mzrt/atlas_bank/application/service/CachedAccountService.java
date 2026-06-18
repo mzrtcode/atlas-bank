@@ -1,9 +1,13 @@
 package com.mzrt.atlas_bank.application.service;
 
+import com.mzrt.atlas_bank.application.command.CreateAccountCommand;
 import com.mzrt.atlas_bank.application.port.in.CreateAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.GetAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.ListAccountUseCase;
 import com.mzrt.atlas_bank.domain.model.account.Account;
+import com.mzrt.atlas_bank.domain.model.shared.Currency;
+import com.mzrt.atlas_bank.domain.model.shared.Email;
+import com.mzrt.atlas_bank.domain.model.shared.Money;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -30,9 +34,9 @@ public class CachedAccountService implements GetAccountUseCase, ListAccountUseCa
     }
 
     @Override
-    public Account create(Account account) {
+    public Account create(CreateAccountCommand command) {
 
-        Account newAccount = createAccountUseCase.create(account);
+        Account newAccount = createAccountUseCase.create(command);
         cache.put(newAccount.getId(), newAccount);
         log.info("Cuenta {} agregada al cache", newAccount.getId());
         return newAccount;
