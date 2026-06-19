@@ -61,7 +61,7 @@ public class Transaction {
     public void maskAsExecuted(){
         domainEvents.add(new TransactionExecutedEvent(
                 id,
-                type,
+                type.name(),
                 sourceAccountId,
                 targetAccountId,
                 amount,
