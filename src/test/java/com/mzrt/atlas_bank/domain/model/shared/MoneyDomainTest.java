@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EmailDomainTest {
+class MoneyDomainTest {
 
     @Test
     @DisplayName("Debe sumar dos montos de la misma moneda")
@@ -55,6 +55,7 @@ class EmailDomainTest {
         assertEquals(new BigDecimal("0.00"), zero.getAmount());
         assertFalse(zero.isNegative());
     }
+
 
 
 
