@@ -1,7 +1,9 @@
 package com.mzrt.atlas_bank.infrastructure.adapter.in.rest;
 
+import com.mzrt.atlas_bank.application.command.CloseAccountCommand;
 import com.mzrt.atlas_bank.application.command.CreateAccountCommand;
 import com.mzrt.atlas_bank.application.facade.AccountDashboardFacade;
+import com.mzrt.atlas_bank.application.port.in.CloseAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.CreateAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.GetAccountUseCase;
 import com.mzrt.atlas_bank.application.port.in.ListAccountUseCase;
@@ -11,6 +13,7 @@ import com.mzrt.atlas_bank.infrastructure.adapter.in.rest.dto.CreateAccountReque
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +25,7 @@ public class AccountController {
 
     private final ListAccountUseCase listAccountUseCase;
     private final CreateAccountUseCase createAccountUseCase;
+    private final CloseAccountUseCase closeAccountUseCase;
     private final AccountMapper accountMapper;
     private final GetAccountUseCase getAccountUseCase;
     private final AccountDashboardFacade dashboardFacade;
@@ -56,6 +60,13 @@ public class AccountController {
     @ResponseStatus(HttpStatus.OK)
     public DashboardReadModel getDashboard(@PathVariable Long id){
         return dashboardFacade.getDashboard(id);
+    }
+
+    @PatchMapping("/{id}/close")
+    @PreAuthorize("hasRole('ADMIN')")
+    public AccountResponse close(@PathVariable Long id){
+        CloseAccountCommand command = new CloseAccountCommand(id);
+        return accountMapper.toResponse(closeAccountUseCase.close(command));
     }
 
 }
