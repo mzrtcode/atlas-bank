@@ -14,21 +14,21 @@ Sistema de bancario usando arquitectura hexagonal + DDD.
 ## 📁 Estructura del Proyecto
 
 ```
-src/main/java/com/mzrt/atlas_bank/
-├── domain/              # Lógica de negocio pura (sin Spring)
-│   ├── model/          # Entidades y value objects
-│   ├── service/        # Domain services
-│   ├── validation/     # Validadores
-│   └── event/          # Domain events
-├── application/         # Casos de uso
-│   ├── command/        # Comandos (CreateAccount, Transfer, CloseAccount)
-│   ├── query/          # Queries
-│   ├── port/           # Interfaces (in/out)
-│   └── facade/         # Orquestadores
-└── infrastructure/      # Framework specifics
-    ├── adapter/        # Controllers, JPA entities, config
-    ├── mapper/         # Domain ↔ Persistence mappers
-    └── listener/       # Event listeners
+📂 src/main/java/com/mzrt/atlas_bank/
+├── 📂 domain/             # Lógica de negocio pura (sin Spring)
+│   ├── 📂 model/          # Entidades y Value Objects
+│   ├── 📂 service/        # Domain Services
+│   ├── 📂 validation/     # Validadores
+│   └── 📂 event/          # Domain Events
+├── 📂 application/        # Casos de uso
+│   ├── 📂 command/        # Comandos (CreateAccount, Transfer, CloseAccount)
+│   ├── 📂 query/          # Queries
+│   ├── 📂 port/           # Interfaces (in/out)
+│   └── 📂 facade/         # Orquestadores
+└── 📂 infrastructure/     # Framework specifics
+    ├── 📂 adapter/        # Controllers, JPA entities, config
+    ├── 📂 mapper/         # Mappers Domain ↔ Persistence
+    └── 📂 listener/       # Event Listeners
 ```
 
 ## 🏗️ Arquitectura
